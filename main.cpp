@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -11,24 +10,39 @@ struct Task {
     string description;
     string deadline;
     bool isCompleted;
+    Task* prev;
+    Task* next;
 
     Task(int id, string name, string course, string desc, string dead)
-        : taskID(id), taskName(name), course(course), description(desc), deadline(dead), isCompleted(false) {}
+        : taskID(id), taskName(name), course(course), description(desc), deadline(dead), isCompleted(false), prev(nullptr), next(nullptr) {}
 };
 
-void addTask(vector<Task> &taskList, int &taskCount) {
-    string taskName, course, description, deadline;
+class TaskManager {
+private:
+    Task* head;
+    Task* tail;
+    int taskCount;
 
-    cout << "\nMasukkan nama tugas: ";
-    getline(cin, taskName);
-    cout << "Masukkan nama mata kuliah: ";
-    getline(cin, course);
-    cout << "Masukkan deskripsi tugas: ";
-    getline(cin, description);
-    cout << "Masukkan deadline (format: yyyy-mm-dd): ";
-    getline(cin, deadline);
+public:
+    TaskManager() : head(nullptr), tail(nullptr), taskCount(0) {}
 
-    taskCount++;
-    taskList.emplace_back(taskCount, taskName, course, description, deadline);
-    cout << "Tugas ID " << taskCount << " telah ditambahkan." << endl;
+    void addTask() {
+        string taskName, course, description, deadline;
+        cout << "\nMasukkan nama tugas: ";
+        getline(cin, taskName);
+        cout << "Masukkan nama mata kuliah: ";
+        getline(cin, course);
+        cout << "Masukkan deskripsi tugas: ";
+        getline(cin, description);
+        cout << "Masukkan deadline (format: yyyy-mm-dd): ";
+        getline(cin, deadline);
+
+        taskCount++;
+        Task* newTask = new Task(taskCount, taskName, course, description, deadline);
+
+        if (head == nullptr) {
+            head = tail = newTask;
+        } else{}
+    }
+
 }
