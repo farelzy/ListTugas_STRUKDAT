@@ -62,5 +62,31 @@ public:
             temp = temp->next;
         }
     }
+     void editTask() {
+        int id;
+        cout << "\nMasukkan ID tugas yang akan diubah: ";
+        cin >> id;
+        cin.ignore();
+
+        Task* temp = head;
+        while (temp != nullptr && temp->taskID != id) {
+            temp = temp->next;
+        }
+
+        if (temp == nullptr) {
+            cout << "Tugas dengan ID " << id << " tidak ditemukan." << endl;
+            return;
+        }
+
+        cout << "Masukkan nama tugas baru: ";
+        getline(cin, temp->taskName);
+        cout << "Masukkan nama mata kuliah baru: ";
+        getline(cin, temp->course);
+        cout << "Masukkan deskripsi tugas baru: ";
+        getline(cin, temp->description);
+        cout << "Masukkan deadline baru (format: yyyy-mm-dd): ";
+        getline(cin, temp->deadline);
+        cout << "Tugas ID " << id << " berhasil diubah." << endl;
+    }
     
 };
