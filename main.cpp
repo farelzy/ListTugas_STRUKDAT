@@ -88,5 +88,21 @@ public:
         getline(cin, temp->deadline);
         cout << "Tugas ID " << id << " berhasil diubah." << endl;
     }
-    
+    void popTask() {
+        if (head == nullptr) {
+            cout << "Tidak ada tugas untuk dihapus." << endl;
+            return;
+        }
+
+        Task* temp = head;
+        if (head == tail) {
+            head = tail = nullptr;
+        } else {
+            head = head->next;
+            head->prev = nullptr;
+        }
+
+        cout << "Tugas ID " << temp->taskID << " berhasil dihapus." << endl;
+        delete temp;
+    }
 };
