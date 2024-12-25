@@ -45,4 +45,22 @@ public:
         } else{}
     }
 
-}
+    void displayTasks() {
+        if (head == nullptr) {
+            cout << "\nTidak ada tugas." << endl;
+            return;
+        }
+
+        Task* temp = head;
+        while (temp != nullptr) {
+            cout << "\nTugas ID : " << temp -> taskID
+                 << "\nNama : " << temp->taskName
+                 << "\nMata Kuliah : " << temp->course
+                 << "\nDeskripsi : " << temp->description
+                 << "\nDeadline : " << temp-> deadline
+                 << "\nStatus : " << (temp->isCompleted ? "Selesai" : "Belum Selesai") << endl;
+            temp = temp->next;
+        }
+    }
+    
+};
