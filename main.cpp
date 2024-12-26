@@ -42,7 +42,12 @@ public:
 
         if (head == nullptr) {
             head = tail = newTask;
-        } else{}
+        } else{
+            tail->next = newTask;
+            newTask->prev = tail;
+            tail = newTask;
+        }
+        cout << "Tugas ID " << taskCount << " telah berhasil ditambahkan." << endl;
     }
 
     void displayTasks() {
@@ -62,7 +67,8 @@ public:
             temp = temp->next;
         }
     }
-     void editTask() {
+
+    void editTask() {
         int id;
         cout << "\nMasukkan ID tugas yang akan diubah: ";
         cin >> id;
@@ -105,4 +111,66 @@ public:
         cout << "Tugas ID " << temp->taskID << " berhasil dihapus." << endl;
         delete temp;
     }
+
+    void sortTasks() {
+        if (head == nullptr || head->next == nullptr) {
+            cout << "Tidak ada atau hanya satu tugas, tidak perlu diurutkan." << endl;
+            return;
+        }
+
+        for (Task* i = head; i != nullptr; i = i->next) {
+            for (Task* j = i->next; j != nullptr; j = j->next) {
+                if (i->taskName > j->taskName) {
+                    swap(i->taskID, j->taskID);
+                    swap(i->taskName, j->taskName);
+                    swap(i->course, j->course);
+                    swap(i->description, j->description);
+                    swap(i->deadline, j->deadline);
+                    swap(i->isCompleted, j->isCompleted);
+                }
+            }
+        }
+        cout << "Tugas berhasil diurutkan berdasarkan nama." << endl;
+    }
 };
+
+int main() {
+    TaskManager tm;
+    int choice;
+
+    do {
+        cout << "1. Tambah Tugas" << endl;
+        cout << "2. Tampilkan Tugas" << endl;
+        cout << "3. Edit Tugas" << endl;
+        cout << "4. Pop Tugas (FIFO)" << endl;
+        cout << "5. Urutkan Tugas" << endl;
+        cout << "0. Keluar" << endl;
+        cout << "Pilih: ";
+        cin >> choice;
+        cin.ignore();
+        switch (choice) {
+        case 1:
+            tm.addTask();
+            break;
+        case 2:
+            tm.displayTasks();
+            break;
+        case 3:
+            tm.editTask();
+            break;
+        case 4:
+            tm.popTask();
+            break;
+        case 5:
+            tm.sortTasks();
+            break;
+        case 0:
+            cout << "Keluar program." << endl;
+            break;
+        default:
+            cout << "Pilihan tidak valid." << endl;
+        }
+    } while (choice != 0);
+
+    return 0;
+}
