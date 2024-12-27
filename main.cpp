@@ -94,6 +94,27 @@ public:
         getline(cin, temp->deadline);
         cout << "Tugas ID " << id << " berhasil diubah." << endl;
     }
+
+    void markTaskAsCompleted() {
+        int id;
+        cout << "\nMasukkan ID tugas yang akan ditandai selesai: ";
+        cin >> id;
+        cin.ignore();
+
+        Task* temp = head;
+        while (temp != nullptr && temp->taskID != id) {
+            temp = temp->next;
+        }
+
+        if (temp == nullptr) {
+            cout << "Tugas dengan ID " << id << " tidak ditemukan." << endl;
+            return;
+        }
+
+        temp->isCompleted = true;
+        cout << "Tugas ID " << id << " berhasil ditandai sebagai selesai." << endl;
+    }
+
     void popTask() {
         if (head == nullptr) {
             cout << "Tidak ada tugas untuk dihapus." << endl;
@@ -114,7 +135,7 @@ public:
 
     void sortTasks() {
         if (head == nullptr || head->next == nullptr) {
-            cout << "Tidak ada atau hanya satu tugas, tidak perlu diurutkan." << endl;
+            cout << "Tidak ada atau hanya ada satu tugas, tidak perlu diurutkan." << endl;
             return;
         }
 
@@ -144,6 +165,7 @@ int main() {
         cout << "3. Edit Tugas" << endl;
         cout << "4. Pop Tugas (FIFO)" << endl;
         cout << "5. Urutkan Tugas" << endl;
+        cout << "6. Tandai Tugas Selesai" << endl;
         cout << "0. Keluar" << endl;
         cout << "Pilih: ";
         cin >> choice;
@@ -163,6 +185,9 @@ int main() {
             break;
         case 5:
             tm.sortTasks();
+            break;
+        case 6:
+            tm.markTaskAsCompleted();
             break;
         case 0:
             cout << "Keluar program." << endl;
